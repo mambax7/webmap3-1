@@ -1,5 +1,5 @@
 <?php
-// $Id: mb_check_base.php,v 1.1 2012/03/17 09:28:12 ohwada Exp $
+// $Id: mb_check_base.php,v 1.2 2012/03/17 12:05:48 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -23,7 +23,7 @@ class webmap3_admin_mb_check_base
 //---------------------------------------------------------
 function webmap3_admin_mb_check_base()
 {
-	$this->_multibyte_class =& webmap3_lib_multibyte();
+	$this->_multibyte_class =& webmap3_lib_multibyte::getInstance();
 }
 
 function &getInstance()
