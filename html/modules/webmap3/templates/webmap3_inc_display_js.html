@@ -1,0 +1,50 @@
+<{* $Id: webmap3_inc_display_js.html,v 1.1 2012/03/17 09:42:55 ohwada Exp $ *}>
+
+<script type="text/javascript">
+//<![CDATA[
+function <{$func_popup}>()
+{
+	var options = "width=<{$open_width}>, height=<{$open_height}>, ";
+	options += "toolbar=no, location=yes, directories=no, status=no, ";
+	options += "menubar=no, scrollbars=yes, resizable=yes, copyhistory=no";
+    window.open( "<{$open_url}>", "<{$open_name}>", options );
+}
+function <{$func_inline}>()
+{
+	var element = document.getElementById( "<{$div_id}>" );
+	if ( element != null ) {
+		 element.style.display = "block";
+	}
+}
+function <{$func_hide}>()
+{
+	var element = document.getElementById( "<{$div_id}>" );
+	if ( element != null ) {
+		 element.style.display = "none";
+	}
+}
+
+<{if $show_innerhtml }>
+function <{$func_inline_innerhtml}>()
+{
+	var html = '<a href="#<{$ancher}>" onclick="<{$func_hide}>()">';
+	html += '[<{$lang_hide}>]</a>';
+	html += '<br /><br />';
+	html += '<iframe src="<{$iframe_url|escape}>" width="<{$iframe_width}>" height="<{$iframe_height}>" frameborder="0" scrolling="yes">';
+	html += '</iframe>';
+
+	var element = document.getElementById( "<{$div_id}>" );
+	if ( element != null ) {
+		 element.innerHTML = html;
+	}
+}
+function <{$func_hide_innerhtml}>()
+{
+	var element = document.getElementById( "<{$div_id}>" );
+	if ( element != null ) {
+		 element.innerHTML = '';
+	}
+}
+<{/if}>
+//]]>
+</script>

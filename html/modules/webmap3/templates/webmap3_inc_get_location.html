@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<{$xoops_langcode}>" lang="<{$xoops_langcode}>">
 <head>
-<{* $Id: webmap3_main_get_location.html,v 1.2 2012/03/17 09:42:24 ohwada Exp $ *}>
+<{* $Id: webmap3_inc_get_location.html,v 1.1 2012/03/17 09:42:55 ohwada Exp $ *}>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-cache" />
@@ -16,7 +16,7 @@
 <body>
 <script type="text/javascript">
 //<![CDATA[
-window.onload = webmap3_load_get_location;
+window.onload = <{$map_func}>;
 //]]>
 </script>
 
@@ -52,7 +52,7 @@ window.onload = webmap3_load_get_location;
 <div id="<{$ele_id_list}>"></div>
 <br />
 
-<div id="<{$ele_id_map}>" style="<{$map_style}>" >Loading ...</div>
+<div id="<{$map_div_id}>" style="<{$map_style}>" >Loading ...</div>
 <br />
 
 <input type="button" value="<{$lang_get_location}>" onclick="webmap3_setParentCenterLocation()" />

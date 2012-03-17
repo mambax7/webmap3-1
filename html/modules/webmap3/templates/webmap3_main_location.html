@@ -1,16 +1,24 @@
-<{* $Id: webmap3_main_location.html,v 1.1 2012/03/17 09:28:52 ohwada Exp $ *}>
+<{* $Id: webmap3_main_location.html,v 1.2 2012/03/17 09:42:24 ohwada Exp $ *}>
 
 <{if $show_default_css }>
-  <link href="<{$xoops_url}>/modules/<{$xoops_dirname}>/libs/default.css" type="text/css" rel="stylesheet"/>
+  <{$default_css}>
 <{/if}>
 
-<{* === gmap js === *}>
+<{if $show_gmap_js }>
+  <{$gmap_js}>
+<{/if}>
+
+<{if $show_head_js }>
+  <{$head_js}>
+<{/if}>
+
 <{$map_js}>
 
 <h3 align='center'><{$module_name}></h3>
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php">[<{$lang_title_search}>]</a> 
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php?fct=location">[<{$lang_title_location}>]</a> 
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php?fct=georss">[<{$lang_title_georss}>]</a> 
+<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/demo.php">[<{$lang_title_demo}>]</a> 
 
 <h4><{$lang_title_location}></h4>
 <{$lang_title_location_desc}><br /><br />
@@ -28,7 +36,7 @@
 </a><br />
 <br />
 
-<div id="<{$element_map}>" class="webmap3_map_location">Loading ...</div>
+<div id="<{$map_div_id}>" class="webmap3_map_location">Loading ...</div>
 
 <{if $is_module_admin }>
 	<br /><hr />
