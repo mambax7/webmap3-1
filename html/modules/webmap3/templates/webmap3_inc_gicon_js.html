@@ -1,0 +1,28 @@
+<{* $Id: webmap3_inc_gicon_js.html,v 1.1 2012/03/17 09:28:52 ohwada Exp $ *}>
+
+<{if $show_gicon_js }>
+  <script src="<{$xoops_url}>/modules/<{$xoops_dirname}>/libs/gicon.js" type="text/javascript"></script>
+<{/if}>
+
+<script type="text/javascript">
+//<![CDATA[
+
+function webmap3_gicon_get_icons() 
+{
+	var icons = new Array();
+
+<{* -- gicon icon loop -- *}>
+<{counter name="gicon_icon_i" assign="gicon_icon_i" start=0 print=false }>
+<{foreach item=gicon_icon from=$gicon_icons}>
+
+	icons[ <{$gicon_icon.id}> ] = "<{$gicon_icon.image_url}>";
+
+<{counter name="gicon_icon_i" assign="gicon_icon_i" print=false }>
+<{/foreach}>
+<{* -- gicon icon loop end -- *}>
+
+	return icons;
+}
+
+//]]>
+</script>
