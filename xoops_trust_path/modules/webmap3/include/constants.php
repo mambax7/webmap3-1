@@ -1,5 +1,5 @@
 <?php
-// $Id: constants.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+// $Id: constants.php,v 1.3 2012/04/09 12:00:36 ohwada Exp $
 
 //=========================================================
 // webphoto module
