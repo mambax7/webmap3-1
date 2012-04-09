@@ -1,5 +1,5 @@
 <?php
-// $Id: modinfo.php,v 1.1 2012/03/17 09:28:11 ohwada Exp $
+// $Id: modinfo.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -31,6 +31,9 @@ if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || !defined($constpref."LANG_LOADED") )
 {
 
 define($constpref."LANG_LOADED" , 1 ) ;
+
+// geocoding: USA
+define($constpref."REGION","us");
 
 // module name
 define($constpref."NAME","Google Maps V3");
@@ -112,6 +115,15 @@ define($constpref."ADMENU_GICON_MANAGER","Google Icon Manager");
 define($constpref."ADMENU_GICON_TABLE_MANAGE","Google icon table manage");
 
 define($constpref."BNAME_LOCATION","Webmap3 Map");
+
+//---------------------------------------------------------
+// v1.10
+//---------------------------------------------------------
+// geocoding
+define($constpref."CFG_LANGUAGE","Langauge code");
+define($constpref."CFG_LANGUAGE_DSC","[Geocoding]" );
+define($constpref."CFG_REGION","Region code");
+define($constpref."CFG_REGION_DSC","[Geocoding]" );
 
 }
 // === define begin ===

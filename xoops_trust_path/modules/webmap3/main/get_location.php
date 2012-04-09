@@ -1,5 +1,8 @@
 <?php
-// $Id: get_location.php,v 1.1 2012/03/17 09:28:11 ohwada Exp $
+// $Id: get_location.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// include/api.php
 
 //=========================================================
 // webmap3 module
@@ -9,16 +12,10 @@
 if( ! defined( 'XOOPS_TRUST_PATH' ) ) die( 'not permit' ) ;
 
 //---------------------------------------------------------
-// xoops system files
-//---------------------------------------------------------
-include_once XOOPS_ROOT_PATH.'/class/template.php';
-
-//---------------------------------------------------------
 // webphoto files
 //---------------------------------------------------------
-webmap3_include_once( 'include/api_html.php' );
-webmap3_include_once( 'main/header.php' );
-webmap3_include_once( 'class/lib/post.php' );
+webmap3_include_once( 'include/api.php' );
+webmap3_include_once( 'class/xoops/param.php' );
 webmap3_include_once( 'class/main/get_location.php' );
 
 //=========================================================

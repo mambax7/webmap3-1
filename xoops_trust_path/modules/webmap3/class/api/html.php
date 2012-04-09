@@ -1,5 +1,8 @@
 <?php
-// $Id: html.php,v 1.1 2012/03/17 09:28:12 ohwada Exp $
+// $Id: html.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-04 K.OHWADA
+// build_display_style_js()
 
 //=========================================================
 // webmap3 module
@@ -40,12 +43,12 @@ class webmap3_api_html
 	var $_display_open_width    = 800;
 	var $_display_open_height   = 850;
 	var $_display_div_id        = 'webmap3_map_iframe' ;
-	var $_display_div_style     = 'display:none;' ;
+	var $_display_div_style     = 'display:block;' ;
 	var $_display_func_popup       = 'webmap3_display_popup';
-	var $_display_func_inline      = 'webmap3_display_inline';
-	var $_display_func_hide        = 'webmap3_display_hide';
-	var $_display_func_inline_html = 'webmap3_display_inline_html';
-	var $_display_func_hide_html   = 'webmap3_display_hide_html';
+	var $_display_func_style_show  = 'webmap3_display_style_show';
+	var $_display_func_style_hide  = 'webmap3_display_style_hide';
+	var $_display_func_html_show   = 'webmap3_display_html_show';
+	var $_display_func_html_hide   = 'webmap3_display_html_hide';
 
 // gicon
 	var $_gicon_select_id   = "webmap3_gicon_id";
@@ -79,7 +82,8 @@ class webmap3_api_html
 	var $_map_ele_id_current_address  = "webmap3_map_current_address";
 
 // template
-	var $_template_display_js        = '';
+	var $_template_display_style_js  = '';
+	var $_template_display_html_js   = '';
 	var $_template_set_location_form = '' ;
 	var $_template_get_location      = '' ;
 
@@ -132,7 +136,8 @@ function webmap3_api_html( $dirname )
 	$this->_map_ele_id_current_location = $dirname."_map_current_location";
 	$this->_map_ele_id_current_address  = $dirname."_map_current_address";
 
-	$this->_template_display_js        = 'db:'.$dirname.'_inc_display_js.html' ;
+	$this->_template_display_style_js  = 'db:'.$dirname.'_inc_display_style_js.html' ;
+	$this->_template_display_html_js   = 'db:'.$dirname.'_inc_display_html_js.html' ;
 	$this->_template_set_location_form = 'db:'.$dirname.'_inc_set_location_form.html' ;
 	$this->_template_get_location      = 'db:'.$dirname.'_inc_get_location.html' ;
 
@@ -235,10 +240,30 @@ function build_display_popup()
 	return $text;
 }
 
-function build_display_inline()
+function build_display_style_show()
+{
+	return $this->build_display_show( $this->_display_func_style_show );
+}
+
+function build_display_style_hide()
+{
+	return $this->build_display_hide( $this->_display_func_style_hide );
+}
+
+function build_display_html_show()
+{
+	return $this->build_display_show( $this->_display_func_html_show );
+}
+
+function build_display_html_hide()
+{
+	return $this->build_display_hide( $this->_display_func_html_hide );
+}
+
+function build_display_show( $func )
 {
 	$text  = '<a href="#'. $this->_display_anchor .'" ';
-	$text .= 'onclick="'. $this->_display_func_inline .'()">';
+	$text .= 'onclick="'. $func .'()">';
 	$text .= "\n";
 	$text .= $this->_lang_display_inline ;
 	$text .= '</a>';
@@ -246,10 +271,10 @@ function build_display_inline()
 	return $text;
 }
 
-function build_display_hide()
+function build_display_hide( $func )
 {
 	$text  = '<a href="#'. $this->_display_anchor .'" ';
-	$text .= 'onclick="'. $this->_display_func_hide .'()">';
+	$text .= 'onclick="'. $func .'()">';
 	$text .= "\n";
 	$text .= $this->_lang_display_hide ;
 	$text .= '</a>';
@@ -257,11 +282,19 @@ function build_display_hide()
 	return $text;
 }
 
-function build_display_div_begin()
+function build_display_div_style_begin()
 {
 	$text  = '<div ';
 	$text .= 'id="'.    $this->_display_div_id .'" ';
 	$text .= 'style="'. $this->_display_div_style .'">';
+	$text .= "\n";
+	return $text;
+}
+
+function build_display_div_begin()
+{
+	$text  = '<div ';
+	$text .= 'id="'. $this->_display_div_id .'">';
 	$text .= "\n";
 	return $text;
 }
@@ -321,13 +354,22 @@ function build_gicon_img()
 	return $text;
 }
 
-function build_display_js()
+function build_display_style_js()
 {
 	$param = $this->build_param_display_js();
 
 	$tpl = new XoopsTpl();
 	$tpl->assign( $param );
-	return $tpl->fetch( $this->_template_display_js );
+	return $tpl->fetch( $this->_template_display_style_js );
+}
+
+function build_display_html_js()
+{
+	$param = $this->build_param_display_js();
+
+	$tpl = new XoopsTpl();
+	$tpl->assign( $param );
+	return $tpl->fetch( $this->_template_display_html_js );
 }
 
 function build_set_location()
@@ -349,24 +391,23 @@ function fetch_get_location( $param )
 function build_param_display_js()
 {
 	$arr = array(
-		'func_popup'       => $this->_display_func_popup ,
-		'func_inline'      => $this->_display_func_inline ,
-		'func_hide'        => $this->_display_func_hide ,
-		'open_url'         => $this->_display_url_opener ,
-		'open_name'        => $this->_display_open_name ,
-		'open_width'       => $this->_display_open_width ,
-		'open_height'      => $this->_display_open_height ,
-		'div_id'           => $this->_display_div_id ,
+		'func_popup'      => $this->_display_func_popup ,
+		'func_style_show' => $this->_display_func_style_show ,
+		'func_style_hide' => $this->_display_func_style_hide ,
+		'open_url'        => $this->_display_url_opener ,
+		'open_name'       => $this->_display_open_name ,
+		'open_width'      => $this->_display_open_width ,
+		'open_height'     => $this->_display_open_height ,
+		'div_id'          => $this->_display_div_id ,
 
 // innerHTML
-		'show_innerhtml'   => $this->_show_innerhtml ,
-		'func_inline_html' => $this->_display_func_inline ,
-		'func_hide_html'   => $this->_display_func_hide ,
-		'ancher'           => $this->_display_anchor ,
-		'iframe_url'       => $this->_display_iframe_url , 
-		'iframe_width'     => $this->_display_iframe_width ,
-		'iframe_height'    => $this->_display_iframe_height ,
-		'lang_hide'        => $this->_lang_display_hide ,
+		'func_html_show'  => $this->_display_func_html_show ,
+		'func_html_hide'  => $this->_display_func_html_hide ,
+		'ancher'          => $this->_display_anchor ,
+		'iframe_url'      => $this->_display_iframe_url , 
+		'iframe_width'    => $this->_display_iframe_width ,
+		'iframe_height'   => $this->_display_iframe_height ,
+		'lang_hide'       => $this->_lang_display_hide ,
 	);
 
 	return $arr;
@@ -409,7 +450,7 @@ function build_param_get_location()
 
 		'head_js'       => $this->_head_js ,
 		'map_style'     => $map_style ,
-		'func_hide_map' => $this->_display_func_hide,
+		'func_hide_map' => $this->_display_func_style_hide,
 		'address'       => $this->_address ,
 
 		'ele_id_list'   => $this->_map_ele_id_list ,
@@ -590,16 +631,6 @@ function set_display_div_style( $v )
 	$this->_display_div_style = $v;
 }
 
-function set_display_div_style_display( $v )
-{
-	if ( $v ) {
-		$style = 'display:block;' ;
-	} else {
-		$style = 'display:none;' ;
-	}
-	$this->_display_div_style = $style ;
-}
-
 function set_gicon_select_id( $v )
 {
 	$this->_gicon_select_id = $v;
@@ -719,9 +750,14 @@ function set_show_current_address( $v )
 	$this->_show_current_address = (boolean)$v;
 }
 
-function set_template_display_js( $v )
+function set_template_display_style_js( $v )
 {
-	$this->_template_display_js = $v;
+	$this->_template_display_style_js = $v;
+}
+
+function set_template_display_html_js( $v )
+{
+	$this->_template_display_html_js = $v;
 }
 
 function set_template_set_location_form( $v )

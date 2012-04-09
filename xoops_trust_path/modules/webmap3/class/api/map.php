@@ -1,5 +1,8 @@
 <?php
-// $Id: map.php,v 1.1 2012/03/17 09:28:12 ohwada Exp $
+// $Id: map.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// set_title_length()
 
 //=========================================================
 // webmap3 module
@@ -24,16 +27,20 @@ class webmap3_api_map
 	var $_simple_map_div  = '' ;
 	var $_simple_map_func = '' ;
 
+// config
+	var $_REGION_DEFAULT = '';
+	var $_region         = '';
+
 // center
 	var $_latitude  = 0;
 	var $_longitude = 0;
 	var $_zoom      = 0;
 
 // map param
-	var $_map_type_control            = false;
-	var $_zoom_control                = false;
-	var $_pan_control                 = false;
-	var $_street_view_control         = false;
+	var $_map_type_control            = true;
+	var $_zoom_control                = true;
+	var $_pan_control                 = true;
+	var $_street_view_control         = true;
 	var $_scale_control               = false;
 	var $_overview_map_control        = false;
 	var $_overview_map_control_opened = false;
@@ -43,6 +50,7 @@ class webmap3_api_map
 	var $_map_type               = '';
 
 	var $_use_draggable_marker = false ;
+	var $_use_center_marker    = false ;
 	var $_use_search_marker    = false ;
 	var $_use_current_location = true;
 	var $_use_current_address  = false;
@@ -56,6 +64,8 @@ class webmap3_api_map
 	var $_markers = array();
 
 // info window
+	var $_title_lengh = 0;
+	var $_title_sanitize = true;
 	var $_info_max   = 0 ;
 	var $_info_width = 0 ;
 	var $_info_break = '' ;
@@ -110,6 +120,8 @@ function webmap3_api_map( $dirname )
 	$this->_multibyte_class =& webmap3_lib_multibyte::getInstance();
 	$this->_utility_class   =& webmap3_lib_utility::getInstance();
 
+	$config_class =& webmap3_inc_config::getSingleton( $dirname );
+	$this->_REGION_DEFAULT = $config_class->get_by_name( 'region' );
 }
 
 function &getSingleton( $dirname )
@@ -131,6 +143,9 @@ function init()
 	$this->_map_div_id = '';
 	$this->_map_func   = '';
 
+// config
+	$this->_region = $this->_REGION_DEFAULT;
+
 // Yokohama, Japan
 	$this->_latitude  = _C_WEBMAP3_CFG_LATITUDE;
 	$this->_longitude = _C_WEBMAP3_CFG_LONGITUDE;
@@ -146,10 +161,11 @@ function init()
 	$this->_overview_map_control_opened = false;
 
 	$this->_map_type_control_style = _C_WEBMAP3_GOOGLE_MAP_TYPE_CONTROL_STYLE;
-	$this->_zoom_control_style     = _C_WEBMAP3_GOOGLE_MAP_TYPE_CONTROL_STYLE; 
-	$this->_map_type               = _C_WEBMAP3_GOOGLE_MAP_TYPE_CONTROL_STYLE;
+	$this->_zoom_control_style     = _C_WEBMAP3_GOOGLE_ZOOM_CONTROL_STYLE; 
+	$this->_map_type               = _C_WEBMAP3_GOOGLE_MAP_TYPE;
 
 	$this->_use_draggable_marker = false ;
+	$this->_use_center_marker    = false ;
 	$this->_use_search_marker    = false ;
 	$this->_use_current_location = true;
 	$this->_use_current_address  = false;
@@ -163,6 +179,8 @@ function init()
 	$this->_timeout    = _C_WEBMAP3_MAP_TIMEOUT;
 
 // info window
+	$this->_title_lengh = _C_WEBMAP3_MAP_TITLE_LENGH;
+	$this->_title_sanitize = true;
 	$this->_info_max   = _C_WEBMAP3_MAP_INFO_MAX ;
 	$this->_info_width = _C_WEBMAP3_MAP_INFO_WIDTH ;
 	$this->_info_break = _C_WEBMAP3_MAP_INFO_BREAK ;
@@ -425,6 +443,7 @@ function build_param_common( $flag_header=true )
 		'zoom_control_style'          => $this->_zoom_control_style ,
 
 		'use_draggable_marker' => $this->bool_to_str( $this->_use_draggable_marker ) ,
+		'use_center_marker'    => $this->bool_to_str( $this->_use_center_marker ) ,
 		'use_search_marker'    => $this->bool_to_str( $this->_use_search_marker ) ,
 		'use_current_location' => $this->bool_to_str( $this->_use_current_location ) ,
 		'use_current_address'  => $this->bool_to_str( $this->_use_current_address ) ,
@@ -432,6 +451,7 @@ function build_param_common( $flag_header=true )
 
 		'opener_mode' => $this->_opener_mode ,
 		'timeout'     => $this->_timeout ,
+		'region'      => $this->_region ,
 
 // element
 		'ele_id_list'             => $this->_ele_id_list ,
@@ -465,6 +485,30 @@ function bool_to_str( $bool )
 }
 
 //---------------------------------------------------------
+// marker
+//---------------------------------------------------------
+function clear_marker()
+{
+	$this->_markers[] = array();
+}
+
+function add_marker( $lat, $lng, $info='', $id=0 )
+{
+	$this->_markers[] = $this->build_single_marker( $lat, $lng, $info, $id ) ;
+}
+
+function build_single_marker( $lat, $lng, $info='', $id=0 )
+{
+	$marker = array(
+		'latitude'  => floatval($lat) ,
+		'longitude' => floatval($lng) ,
+		'info'      => $info ,
+		'icon_id'   => intval($id) ,
+	);
+	return $marker ;
+}
+
+//---------------------------------------------------------
 // utility
 //---------------------------------------------------------
 function adjust_image_size( $width, $height )
@@ -478,10 +522,24 @@ function adjust_image_size( $width, $height )
 //---------------------------------------------------------
 // multibyte
 //---------------------------------------------------------
+function build_title_short( $str )
+{
+	$str = $this->_multibyte_class->shorten( $str, $this->_title_lengh );
+	if ( $this->_title_sanitize ) {
+		$str = $this->sanitize( $str );
+	}
+	return $str;
+}
+
 function build_summary( $str )
 {
 	return $this->_multibyte_class->build_summary_with_wordwrap( 
 		$str, $this->_info_max, $this->_info_width, $this->_info_break, $this->_info_sanitize );
+}
+
+function sanitize( $str )
+{
+	return $this->_multibyte_class->sanitize( $str );
 }
 
 //---------------------------------------------------------
@@ -543,6 +601,11 @@ function set_timeout( $val )
 	$this->_timeout = intval($val);
 }
 
+function set_region( $val )
+{
+	$this->_region = $val;
+}
+
 function set_opener_mode( $val )
 {
 	$this->_opener_mode = $val;
@@ -570,37 +633,37 @@ function set_element( $val )
 
 function set_map_type_control( $val )
 {
-	$this->_map_type_control = (boolean)$val;
+	$this->_map_type_control = (bool)$val;
 }
 
 function set_zoom_control( $val )
 {
-	$this->_zoom_control = (boolean)$val;
+	$this->_zoom_control = (bool)$val;
 }
 
 function set_pan_control( $val )
 {
-	$this->_pan_control = (boolean)$val;
+	$this->_pan_control = (bool)$val;
 }
 
 function set_street_view_control( $val )
 {
-	$this->_street_view_control = (boolean)$val;
+	$this->_street_view_control = (bool)$val;
 }
 
 function set_scale_control( $val )
 {
-	$this->_scale_control = (boolean)$val;
+	$this->_scale_control = (bool)$val;
 }
 
 function set_overview_map_control( $val )
 {
-	$this->_overview_map_control = (boolean)$val;
+	$this->_overview_map_control = (bool)$val;
 }
 
 function set_overview_map_control_opened( $val )
 {
-	$this->_overview_map_control_opened = (boolean)$val;
+	$this->_overview_map_control_opened = (bool)$val;
 }
 
 function set_map_type_control_style( $val )
@@ -621,6 +684,11 @@ function set_map_type( $val )
 function set_use_draggable_marker( $val )
 {
 	$this->_use_draggable_marker = (bool)$val;
+}
+
+function set_use_center_marker( $val )
+{
+	$this->_use_center_marker = (bool)$val;
 }
 
 function set_use_search_marker( $val )
@@ -670,17 +738,17 @@ function set_ele_id_parent_address( $val )
 
 function set_use_current_location( $val )
 {
-	$this->_use_current_location = (boolean)$val;
+	$this->_use_current_location = (bool)$val;
 }
 
 function set_use_current_address( $val )
 {
-	$this->_use_current_address = (boolean)$val;
+	$this->_use_current_address = (bool)$val;
 }
 
 function set_use_parent_location( $val )
 {
-	$this->_use_parent_location = (boolean)$val;
+	$this->_use_parent_location = (bool)$val;
 }
 
 function set_lang_latitude( $val )
@@ -711,6 +779,21 @@ function set_lang_no_match_place( $val )
 function set_lang_not_successful( $val )
 {
 	$this->_lang_not_successful = $val ;
+}
+
+function set_title_length( $val )
+{
+	$this->_title_length = intval($val) ;
+}
+
+function set_title_sanitize( $val )
+{
+	$this->_title_sanitize = (bool)($val) ;
+}
+
+function set_info_sanitize( $val )
+{
+	$this->_info_sanitize = (bool)($val) ;
 }
 
 function set_info_max( $val )
@@ -759,27 +842,6 @@ function set_map_center( $lat, $lng, $zoom )
 	$this->set_latitude( $lat );
 	$this->set_longitude( $lng );
 	$this->set_zoom( $zoom );
-}
-
-function clear_marker()
-{
-	$this->_markers[] = array();
-}
-
-function add_marker( $lat, $lng, $info='', $id=0 )
-{
-	$this->_markers[] = $this->build_single_marker( $lat, $lng, $info, $id ) ;
-}
-
-function build_single_marker( $lat, $lng, $info='', $id=0 )
-{
-	$marker = array(
-		'latitude'  => floatval($lat) ,
-		'longitude' => floatval($lng) ,
-		'info'      => $info ,
-		'icon_id'   => intval($id) ,
-	);
-	return $marker ;
 }
 
 function set_gicon_name( $val )

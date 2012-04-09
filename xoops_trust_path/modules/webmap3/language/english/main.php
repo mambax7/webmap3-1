@@ -1,5 +1,5 @@
 <?php
-// $Id: main.php,v 1.1 2012/03/17 09:28:11 ohwada Exp $
+// $Id: main.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -108,6 +108,13 @@ define("_WEBMAP3_UPLOADER_ERR_LARGE_FILE_SIZE", "File size too large: ");
 define("_WEBMAP3_UPLOADER_ERR_LARGE_WIDTH", "File width must be smaller than ");
 define("_WEBMAP3_UPLOADER_ERR_LARGE_HEIGHT", "File height must be smaller than ");
 define("_WEBMAP3_UPLOADER_ERR_UPLOAD", "Failed uploading file: ");
+
+//---------------------------------------------------------
+// v1.10
+//---------------------------------------------------------
+define("_WEBMAP3_TITLE_GEOCODING", "Geocoding");
+define("_WEBMAP3_TITLE_GEOCODING_DESC", "Search Latitude and Longitude from address using Google Geocoding API");
+define('_WEBMAP3_LOOK_GOOGLE_MAP', 'Look with large map');
 
 // === define end ===
 }

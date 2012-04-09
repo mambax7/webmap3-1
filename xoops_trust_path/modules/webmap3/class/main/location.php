@@ -1,5 +1,8 @@
 <?php
-// $Id: location.php,v 1.1 2012/03/17 09:28:13 ohwada Exp $
+// $Id: location.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// changed build_map()
 
 //=========================================================
 // webmap3 module
@@ -42,9 +45,7 @@ function main()
 	$param['longitude'] = $this->get_config('longitude');
 	$param['zoom']      = $this->get_config('zoom');
 
-	$arr = $this->build_map();
-	$param['map_js']     = $arr['map_js'];
-	$param['map_div_id'] = $this->_map_div_id;
+	$this->build_map();
 
 	return $param;
 }
@@ -63,18 +64,8 @@ function build_map()
 	$this->init_map();
 	$this->_map_class->assign_gicon_array_to_head();
 
-//	$icons = $this->_map_class->get_icons();
-//	$param = $this->_map_class->build_markers( $markers, $icons );
-
 	$param = $this->_map_class->build_markers( $markers );
              $this->_map_class->fetch_markers_head( $param );
-	$js    = $this->_map_class->fetch_body_common(  $param );
-
-	$arr = array(
-		'map_js' => $js
-	);
-
-	return $arr;
 }
 
 // --- class end ---

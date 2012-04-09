@@ -1,23 +1,16 @@
-<{* $Id: main_location.html,v 1.1 2012/03/17 09:28:11 ohwada Exp $ *}>
+<{* $Id: main_location.html,v 1.2 2012/04/09 11:52:19 ohwada Exp $ *}>
 
-<{if $show_default_css }>
-  <{$default_css}>
-<{/if}>
-
-<{if $show_gmap_js }>
-  <{$gmap_js}>
-<{/if}>
-
-<{if $show_head_js }>
-  <{$head_js}>
-<{/if}>
-
-<{$map_js}>
+<script type="text/javascript">
+//<![CDATA[
+  window.onload = <{$map_func}>;
+//]]>
+</script>
 
 <h3 align='center'><{$module_name}></h3>
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php">[<{$lang_title_search}>]</a> 
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php?fct=location">[<{$lang_title_location}>]</a> 
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php?fct=georss">[<{$lang_title_georss}>]</a> 
+<a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/index.php?fct=geocoding">[<{$lang_title_geocoding}>]</a> 
 <a href="<{$xoops_url}>/modules/<{$xoops_dirname}>/demo.php">[<{$lang_title_demo}>]</a> 
 
 <h4><{$lang_title_location}></h4>

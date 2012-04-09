@@ -1,5 +1,5 @@
 <?php
-// $Id: main.php,v 1.1 2012/03/17 09:28:11 ohwada Exp $
+// $Id: main.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -108,6 +108,13 @@ define("_WEBMAP3_UPLOADER_ERR_LARGE_FILE_SIZE", "ファイル・サイズが大�
 define("_WEBMAP3_UPLOADER_ERR_LARGE_WIDTH", "画像横幅が大きすぎる ");
 define("_WEBMAP3_UPLOADER_ERR_LARGE_HEIGHT", "画像高さが大きすぎる ");
 define("_WEBMAP3_UPLOADER_ERR_UPLOAD", "アップロードに失敗した ");
+
+//---------------------------------------------------------
+// v1.10
+//---------------------------------------------------------
+define("_WEBMAP3_TITLE_GEOCODING", "ジオコーディング");
+define("_WEBMAP3_TITLE_GEOCODING_DESC", "Google Geocoding API を使用して、住所から緯度・経度を検索します");
+define('_WEBMAP3_LOOK_GOOGLE_MAP', '大きな地図で見る');
 
 // === define end ===
 }

@@ -1,5 +1,8 @@
 <?php
-// $Id: location.php,v 1.1 2012/03/17 09:28:12 ohwada Exp $
+// $Id: location.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// webmap3_api_form
 
 //=========================================================
 // webmap3 module
@@ -12,8 +15,7 @@
 class webmap3_admin_location extends webmap3_admin_base
 {
 	var $_config_item_class;
-	var $_gicon_class;
-	var $_html_class;
+	var $_form_class;
 	var $_header_class;
 
 	var $_THIS_FCT = 'location';
@@ -27,8 +29,7 @@ function webmap3_admin_location( $dirname, $trust_dirname )
 	$this->webmap3_admin_base( $dirname, $trust_dirname );
 
 	$this->_config_item_class =& webmap3_xoops_config_item::getInstance( $dirname );
-	$this->_gicon_class  =& webmap3_api_gicon::getSingleton( $dirname );
-	$this->_html_class   =& webmap3_api_html::getSingleton( $dirname );
+	$this->_form_class   =& webmap3_api_form::getSingleton( $dirname );
 	$this->_header_class =& webmap3_xoops_header::getSingleton( $dirname );
 
 	$this->_THIS_URL = $this->build_this_url( $this->_THIS_FCT ) ;
@@ -102,24 +103,26 @@ function build_content()
 	return $tpl->fetch( $template );
 }
 
-function build_param( $flag_header=false )
+function build_param()
 {
 	list( $show_default_css, $default_css ) = 
-		$this->_header_class->assign_or_get_default_css( $flag_header ) ;
-
-	list( $show_gicon_js, $gicon_js ) = 
-		$this->_gicon_class->assign_gicon_js_to_head( $flag_header );
+		$this->_header_class->assign_or_get_default_css( false ) ;
 
 	$arr = array(
 		'xoops_dirname'    => $this->_DIRNAME ,
-		'show_default_css' => $show_default_css ,
 		'default_css'      => $default_css ,
-		'show_gicon_js'    => $show_gicon_js ,
-		'gicon_js'         => $gicon_js ,
-		'gicons_js'        => $this->_gicon_class->get_gicons_js() ,
-		'display_js'       => $this->_html_class->build_display_js() ,
-		'map_display'      => $this->build_display() ,
+		'form_js'          => $this->_form_class->build_form_js( false ) ,
 		'form_location'    => $this->build_form_location(),
+
+// style
+		'display_js'       => $this->_form_class->build_display_style_js() ,
+		'map_display'      => $this->_form_class->build_form_desc_style(),
+		'map_iframe'       => $this->_form_class->build_div_iframe(),
+
+// html
+//		'display_js'       => $this->_form_class->build_display_html_js() ,
+//		'map_display'      => $this->_form_class->build_form_desc_html(),
+//		'map_iframe'       => $this->_form_class->build_div_html(),
 	);
 
 	return $arr;
@@ -156,48 +159,17 @@ function build_param_form()
 	return $arr;
 }
 
-function build_display()
-{
-	$this->_html_class->set_display_div_style_display( true );
-
-	$text  = $this->_html_class->build_display_anchor();
-	$text .= $this->_html_class->build_display_logo();
-	$text .= " &nbsp; ";
-	$text .= $this->_html_class->build_display_desc();
-	$text .= "<br />\n";
-	$text .= $this->_html_class->build_display_new();
-	$text .= "<br />\n";
-	$text .= $this->_html_class->build_display_popup();
-	$text .= "<br />\n";
-	$text .= $this->_html_class->build_display_inline();
-	$text .= " &nbsp; ";
-	$text .= $this->_html_class->build_display_hide();
-	$text .= "<br />\n";
-	$text .= $this->_html_class->build_display_div_begin();
-	$text .= $this->_html_class->build_display_iframe();
-	$text .= $this->_html_class->build_display_div_end();
-
-	return $text;
-}
-
 function build_icon_content()
 {
-	$id      = $this->get_config('marker_gicon');
-	$options = $this->_gicon_class->get_sel_options( true );
-	$img_src = $this->_gicon_class->get_image_url( $id ) ;
+	$id = $this->get_config('marker_gicon');
 
-	$this->_html_class->set_gicon_id( $id );
-	$this->_html_class->set_gicon_options( $options );
-	$this->_html_class->set_gicon_img_src( $img_src );
-	$this->_html_class->set_gicon_select_name( 'webmap3_gicon_id' );
-	$this->_html_class->set_gicon_select_id(   'webmap3_gicon_id' );
-	$this->_html_class->set_gicon_img_id(      'webmap3_gicon_img' );
+	$this->_form_class->set_gicon_select_name( 'webmap3_gicon_id' );
+	$this->_form_class->set_gicon_select_id(   'webmap3_gicon_id' );
+	$this->_form_class->set_gicon_img_id(      'webmap3_gicon_img' );
 
-	$text  = $this->_html_class->build_gicon_icon();
+	$text  = $this->_form_class->build_gicon_icon();
 	$text .= "<br />\n";
-	$text .= $this->_html_class->build_gicon_select();
-	$text .= "<br />\n";
-	$text .= $this->_html_class->build_gicon_img();
+	$text .= $this->_form_class->build_ele_gicon( $id );
 
 	return $text;
 }

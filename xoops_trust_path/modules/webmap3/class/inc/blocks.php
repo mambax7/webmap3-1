@@ -1,5 +1,8 @@
 <?php
-// $Id: blocks.php,v 1.1 2012/03/17 09:28:14 ohwada Exp $
+// $Id: blocks.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// height timeout
 
 //=========================================================
 // webmap3 module
@@ -81,11 +84,25 @@ function location_show( $options )
 
 function location_edit( $options )
 {
-	$ret  = '<table border="0"><tr><td>'."\n";
+	$ret  = '<table border="0">';
+	$ret .= '<tr><td>'."\n";
 	$ret .= 'dirname';
 	$ret .= '</td><td>'."\n";
-	$ret .= $this->_DIRNAME;
-	$ret .= '<input type="hidden" name="options[0]" value="'. $this->_DIRNAME .'" />'."\n";
+	$ret .= $options[0] ;
+	$ret .= '<input type="hidden" name="options[0]" value="'. $options[0] .'" />'."\n";
+	$ret .= '</td></tr>'."\n";
+	$ret .= '<tr><td>'."\n";
+	$ret .= $this->constant('HEIGHT');
+	$ret .= '</td><td>'."\n";
+	$ret .= '<input type="text" name="options[1]" value="'. intval($options[1]) .'" />'."\n";
+	$ret .= 'px';
+	$ret .= '</td></tr>'."\n";
+	$ret .= '<tr><td>'."\n";
+	$ret .= $this->constant('TIMEOUT');
+	$ret .= '</td><td>'."\n";
+	$ret .= '<input type="text" name="options[2]" value="'. intval($options[2]) .'" />'."\n";
+	$ret .= $this->constant('TIMEOUT_DSC');
+	$ret .= '</td></tr>'."\n";
 	$ret .= '</table>'."\n";
 
 	return $ret ;
@@ -96,20 +113,16 @@ function location_edit( $options )
 //---------------------------------------------------------
 function build_block( $options )
 {
+	$this->build_map();
+
 	$block = array(
-		'dirname'   => $this->_DIRNAME ,
+		'dirname'   => $options[0] ,
+		'height'    => intval( $options[1] ),
+		'timeout'   => intval( $options[2] ),
+		'func'      => $this->_map_func ,
+		'div_id'    => $this->_map_div_id ,
 		'lang_more' => 'more...' ,
 	);
-
-	$map_param = $this->build_map();
-	if ( !is_array($map_param) ) {
-		$block['error'] = 'no map' ;
-		return $block ;
-	}
-
-	$block['show_map']    = true;
-	$block['block_js']    = $map_param['block_js'] ;
-	$block['map_div_id']  = $this->_map_div_id ;
 
 	return $block ;
 }
@@ -149,13 +162,6 @@ function build_map()
 
 	$param = $this->_map_class->build_markers( $markers );
              $this->_map_class->fetch_markers_head( $param );
-	$js    = $this->_map_class->fetch_block_common( $param );
-
-	$arr = array(
-		'block_js'   => $js ,
-	);
-
-	return $arr;
 }
 
 //---------------------------------------------------------

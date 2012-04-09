@@ -1,5 +1,8 @@
 <?php
-// $Id: location.php,v 1.1 2012/03/17 09:28:11 ohwada Exp $
+// $Id: location.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// remove api_map.php
 
 //=========================================================
 // webmap3 module
@@ -9,15 +12,8 @@
 if( ! defined( 'XOOPS_TRUST_PATH' ) ) die( 'not permit' ) ;
 
 //---------------------------------------------------------
-// xoops system files
-//---------------------------------------------------------
-include_once XOOPS_ROOT_PATH.'/class/template.php';
-
-//---------------------------------------------------------
 // webmap3 files
 //---------------------------------------------------------
-webmap3_include_once( 'include/api_html.php' );
-webmap3_include_once( 'include/api_gicon.php' );
 webmap3_include_once( 'admin/header.php' );
 webmap3_include_once( 'class/lib/form.php' );
 webmap3_include_once( 'class/lib/gtickets.php' );

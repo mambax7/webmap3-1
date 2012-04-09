@@ -1,5 +1,5 @@
 <?php
-// $Id: blocks.php,v 1.1 2012/03/17 09:28:11 ohwada Exp $
+// $Id: blocks.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -14,7 +14,12 @@ if( !defined($constpref."LANG_LOADED") )
 
 define($constpref."LANG_LOADED" , 1 ) ;
 
-// dummy
+//---------------------------------------------------------
+// v1.10
+//---------------------------------------------------------
+define($constpref.'HEIGHT',  'Map Height');
+define($constpref.'TIMEOUT', 'Timeout');
+define($constpref.'TIMEOUT_DSC', 'msec');
 
 // === define end ===
 }

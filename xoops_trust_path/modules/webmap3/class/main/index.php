@@ -1,5 +1,8 @@
 <?php
-// $Id: index.php,v 1.1 2012/03/17 09:28:13 ohwada Exp $
+// $Id: index.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// changed build_map()
 
 //=========================================================
 // webmap3 module
@@ -43,8 +46,6 @@ function &getInstance( $dirname )
 //---------------------------------------------------------
 function main()
 {
-	$id = 0;
-
 	$addr = $this->get_config('address');
 	$lat  = $this->get_config('latitude');
 	$lng  = $this->get_config('longitude');
@@ -52,11 +53,11 @@ function main()
 
 	if ( isset($_GET['lat']) && isset($_GET['lng']) ) {
 		$addr = '';
-		$lat  = $_GET['lat'];
-		$lng  = $_GET['lng'];
+		$lat  = floatval( $_GET['lat'] );
+		$lng  = floatval( $_GET['lng'] );
 		$zoom = $this->_ZOOM_GEOCODE_DEFAULT;
 		if ( isset($_GET['zoom']) ) {
-			$zoom = $_GET['zoom'];
+			$zoom = intval( $_GET['zoom'] );
 		}
 	}
 
@@ -65,31 +66,24 @@ function main()
 	$param['ele_id_list']   = $this->_ELE_ID_LIST;
 	$param['ele_id_search'] = $this->_ELE_ID_SEARCH;
 
-	$arr = $this->build_map( $lat, $lng, $zoom );
-	$param['map_js']       = $arr['map_js'];
-	$param['map_div_id']   = $this->_map_div_id ;
+	$this->build_map( $lat, $lng, $zoom );
 
 	return $param;
 }
 
-function build_map( $lat, $lng, $zoom, $flag_header=true )
+function build_map( $lat, $lng, $zoom )
 {
 	$this->init_map();
+	$this->_map_class->assign_search_js_to_head( true );
 	$this->_map_class->set_latitude(  $lat );
 	$this->_map_class->set_longitude( $lng );
 	$this->_map_class->set_zoom(      $zoom );
-	$this->_map_class->set_use_search_marker( $this->get_config('use_search_marker') );
+	$this->_map_class->set_use_search_marker( 
+		$this->get_config('use_search_marker') );
 	$this->_map_class->set_ele_id_list( $this->_ELE_ID_LIST );
 
 	$param = $this->_map_class->build_search();
 	         $this->_map_class->fetch_search_head( $param );
-	$js    = $this->_map_class->fetch_body_common( $param );
-
-	$arr = array(
-		'map_js' => $js
-	);
-
-	return $arr;
 }
 
 // --- class end ---

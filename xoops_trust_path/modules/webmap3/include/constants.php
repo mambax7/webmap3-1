@@ -1,10 +1,12 @@
 <?php
-// $Id: constants.php,v 1.1 2012/03/17 09:28:10 ohwada Exp $
+// $Id: constants.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
 
 //=========================================================
 // webphoto module
 // 2012-03-01 K.OHWADA
 //=========================================================
+
+// define("_C_WEBMAP3_MAP_TITLE_LENGH", 100 ) ;
 
 if( ! defined( 'XOOPS_TRUST_PATH' ) ) die( 'not permit' ) ;
 
@@ -37,9 +39,10 @@ define("_C_WEBMAP3_GOOGLE_MAP_TYPE",               "roadmap" ) ;
 
 define("_C_WEBMAP3_MAP_WIDTH",      "640px" ) ;
 define("_C_WEBMAP3_MAP_HEIGHT",     "480px" ) ;
-define("_C_WEBMAP3_MAP_INFO_MAX",   100 ) ;
-define("_C_WEBMAP3_MAP_INFO_WIDTH", 20 ) ;
-define("_C_WEBMAP3_MAP_INFO_BREAK", "<br />" ) ;
+define("_C_WEBMAP3_MAP_TITLE_LENGH", 100 ) ;
+define("_C_WEBMAP3_MAP_INFO_MAX",    100 ) ;
+define("_C_WEBMAP3_MAP_INFO_WIDTH",  20 ) ;
+define("_C_WEBMAP3_MAP_INFO_BREAK",  "<br />" ) ;
 define("_C_WEBMAP3_MAP_IMAGE_MAX_WIDTH",  120 ) ;
 define("_C_WEBMAP3_MAP_IMAGE_MAX_HEIGHT", 120 ) ;
 

@@ -1,5 +1,8 @@
 <?php
-// $Id: xoops_version.php,v 1.1 2012/03/17 09:28:10 ohwada Exp $
+// $Id: xoops_version.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// locate.php
 
 //=========================================================
 // webmap3 module
@@ -25,6 +28,7 @@ webmap3_include_once( 'class/xoops/config_update.php',      $MY_DIRNAME );
 webmap3_include_once( 'class/inc/xoops_version_base.php',   $MY_DIRNAME );
 webmap3_include_once( 'class/inc/xoops_version.php',        $MY_DIRNAME );
 webmap3_include_language( 'modinfo.php',                    $MY_DIRNAME );
+webmap3_include_language( 'locate.php',                     $MY_DIRNAME );
 
 //---------------------------------------------------------
 // main

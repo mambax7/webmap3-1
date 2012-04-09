@@ -1,11 +1,31 @@
-$Id: readme_jp.txt,v 1.1 2012/03/17 09:28:10 ohwada Exp $
+$Id: readme_jp.txt,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+=================================================
+Version: 1.10
+Date:    2012-04-02
+Author:  Kenichi OHWADA
+URL:     http://linux.ohwada.jp/
+Email:   webmaster@ohwada.jp
+=================================================
+
+1. API
+(1) geocoding
+Web Geocoding API を使用して、住所から緯度経度を検索するAPIを追加した
+
+(2) get_location
+緯度経度を取得するAPIを追加した
+
+2. JavaScript
+(1) 緯度経度の取得のとき、すでに値が設定されていれば、中心にマーカーを表示する
+(2) バグ対策: IE9で動作しない
+
+3. ブロック表示
+(1) 地図の高さ と タイムアウト時間 を追加した
+
 
 =================================================
 Version: 1.00
 Date:    2012-03-01
-Author:  Kenichi OHWADA
-URL:     http://linux.ohwada.jp/
-Email:   webmaster@ohwada.jp
 =================================================
 
 Google Maps API を利用して地図を表示するモジュールです。

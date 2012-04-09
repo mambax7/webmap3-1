@@ -1,4 +1,4 @@
-<{* $Id: inc_get_location_head_js.html,v 1.1 2012/03/17 09:28:11 ohwada Exp $ *}>
+<{* $Id: inc_get_location_head_js.html,v 1.2 2012/04/09 11:52:19 ohwada Exp $ *}>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -52,6 +52,9 @@ function <{$map_func}>()
 <{* value: strings : "true" or "false" *}>
 <{if $use_draggable_marker != "" }>
 	webmap3_use_draggable_marker = <{$use_draggable_marker}>;
+<{/if}>
+<{if $use_center_marker != "" }>
+	webmap3_use_center_marker = <{$use_center_marker}>;
 <{/if}>
 <{if $use_current_location  != "" }>
 	webmap3_use_current_location = <{$use_current_location }>;

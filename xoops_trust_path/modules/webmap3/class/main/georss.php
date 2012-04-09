@@ -1,5 +1,8 @@
 <?php
-// $Id: georss.php,v 1.1 2012/03/17 09:28:13 ohwada Exp $
+// $Id: georss.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// changed build_map()
 
 //=========================================================
 // webmap3 module
@@ -40,26 +43,17 @@ function main()
 	$param['geo_url_s']   = $this->get_config_text('geo_url',   's');
 	$param['geo_title_s'] = $this->get_config_text('geo_title', 's');
 
-	$arr = $this->build_map();
-	$param['map_js']     = $arr['map_js'];
-	$param['map_div_id'] = $this->_map_div_id;
+	$this->build_map();
 
 	return $param;
 }
 
-function build_map( $flag_header=true )
+function build_map()
 {
-	$arr = $this->init_map();
-
-	$param = $this->_map_class->build_geoxml( $this->get_config_text('geo_url'), true );
-	         $this->_map_class->fetch_geoxml_head( $param );
-	$js    = $this->_map_class->fetch_body_common( $param );
-
-	$arr = array(
-		'map_js' => $js
-	);
-
-	return $arr;
+	$this->init_map();
+	$param = $this->_map_class->build_geoxml( 
+		$this->get_config_text('geo_url'), true );
+	$this->_map_class->fetch_geoxml_head( $param );
 }
 
 // --- class end ---

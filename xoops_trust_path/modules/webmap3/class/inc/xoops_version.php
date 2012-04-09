@@ -1,5 +1,8 @@
 <?php
-// $Id: xoops_version.php,v 1.1 2012/03/17 09:28:13 ohwada Exp $
+// $Id: xoops_version.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// region
 
 //=========================================================
 // webmap3 module
@@ -293,6 +296,26 @@ function build_config()
 	) ;
 
 	$arr[] = array(
+		'name'			=> 'language' ,
+		'title'			=> $this->lang_name( 'CFG_LANGUAGE' ) ,
+		'description'	=> $this->lang_name( 'CFG_LANGUAGE_DSC' ) ,
+		'formtype'		=> 'textbox' ,
+		'valuetype'		=> 'text' ,
+		'default'		=> _LANGCODE ,
+		'options'		=> array()
+	) ;
+
+	$arr[] = array(
+		'name'			=> 'region' ,
+		'title'			=> $this->lang_name( 'CFG_REGION' ) ,
+		'description'	=> $this->lang_name( 'CFG_REGION_DSC' ) ,
+		'formtype'		=> 'textbox' ,
+		'valuetype'		=> 'text' ,
+		'default'		=> $this->lang( 'L_REGION' ),
+		'options'		=> array()
+	) ;
+
+	$arr[] = array(
 		'name'			=> 'address' ,
 		'title'			=> $this->lang_name( 'CFG_ADDRESS' ) ,
 		'description'	=> $this->lang_name( 'CFG_CONFIG_DSC' ) ,
@@ -345,7 +368,6 @@ function build_config()
 	return $arr;
 }
 
-
 //---------------------------------------------------------
 // Blocks
 //---------------------------------------------------------
@@ -359,7 +381,7 @@ function build_blocks()
 		'description' => "Shows map" ,
 		'show_func'   => "b_webmap3_location_show" ,
 		'edit_func'   => "b_webmap3_location_edit" ,
-		'options'     => $this->build_blocks_options() ,
+		'options'     => $this->_DIRNAME.'|300|1000' ,
 		'template'    => '' ,
 		'can_clone'   => true ,
 	);
@@ -370,12 +392,6 @@ function build_blocks()
 	}
 
 	return $arr;
-}
-
-function build_blocks_options()
-{
-	$str  = $this->_DIRNAME ;
-	return $str ;
 }
 
 // --- class end ---
