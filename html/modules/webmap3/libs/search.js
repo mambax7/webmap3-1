@@ -1,7 +1,17 @@
 /* ========================================================
- * $Id: search.js,v 1.1 2012/03/17 09:28:53 ohwada Exp $
+ * $Id: search.js,v 1.2 2012/04/09 12:09:43 ohwada Exp $
  * http://code.google.com/intl/en/apis/maps/documentation/javascript/
  * ========================================================
+ */
+
+/* --------------------------------------------------------
+ * change log
+ * 2012-04-02 K.OHWADA
+ *   webmap3_use_center_marker
+ *   bugfix: NOT work in IE9
+ * 2012-03-01 K.OHWADA
+ *   Frist version
+ * --------------------------------------------------------
  */
 
 /* --------------------------------------------------------
@@ -13,8 +23,8 @@
 var WEBMAP3_ZOOM_MIN = 0;
 var WEBMAP3_ZOOM_MAX = 17;
 var WEBMAP3_ZOOM_DEFAULT = 12;
-var WEBMAP3_SMALL_ICON = "marker_small.png";
-var WEBMAP3_DRAG_ICON  = "marker_drag.png";
+var WEBMAP3_SMALL_ICON  = "marker_small.png";
+var WEBMAP3_DRAG_ICON   = "marker_drag.png";
 
 /* system */
 var webmap3_marker_url = "";
@@ -31,8 +41,10 @@ var webmap3_ele_id_parent_address   = "webmap3_map_address";
 
 /* setter */
 var webmap3_opener_mode  = "";
+var webmap3_region = "";
 var webmap3_use_search_marker    = true;
 var webmap3_use_draggable_marker = false;
+var webmap3_use_center_marker    = false;
 var webmap3_use_current_location = true;
 var webmap3_use_current_address  = false;
 var webmap3_use_parent_location  = false;
@@ -101,20 +113,6 @@ function webmap3_get_location( param )
     webmap3_geocoder = new google.maps.Geocoder();
 	webmap3_marker_list = new google.maps.MVCArray();
 
-/* get parent latitude */
-	var parent_flag  = false;
-	var parent_param = webmap3_getParentLatitude();
-	if ( parent_param ) {
-		parent_flag = parent_param[0];
-	}
-
-/* if parent latitude is set */
-	if( parent_flag ) {
-		param["latitude"]  = parent_param[1];
-		param["longitude"] = parent_param[2];
-		param["zoom"]      = parent_param[3];
-	}
-
 	var lat    = param["latitude"] ;
 	var lng    = param["longitude"] ;
 	var zoom   = param["zoom"] ;
@@ -133,22 +131,13 @@ function webmap3_get_location( param )
 		webmap3_eventDraggableMarkerDragend();
 	}
 
+/* center maker */
+	if ( webmap3_use_center_marker ) {
+		webmap3_createCenterMarker( center );
+	}
+
 /* map event */
 	webmap3_eventMapDragend();
-
-/* get parent address */
-	var addr = webmap3_getParentAddress();
-	if ( addr ) {
-		var ele = document.getElementById( webmap3_ele_id_search );
-		if ( elet != null ) {
-			 ele.innerHTML = addr.webmap3_htmlspecialchars();
-		}
-
-/* if parent param is NOT set */
-		if( parent_flag == false ) {
-			webmap3_searchAddress( addr );
-		}
-	}
 }
 
 /* --------------------------------------------------------
@@ -217,6 +206,19 @@ function webmap3_eventDraggableMarkerDragend()
 /* after 0.5 sec */
 		500 );
 	});
+}
+
+/* --------------------------------------------------------
+ * center marker
+ * --------------------------------------------------------
+ */
+function webmap3_createCenterMarker( center ) 
+{
+    var marker = new google.maps.Marker({
+        map: webmap3_map,
+        position: center
+    });
+	return marker;
 }
 
 /* --------------------------------------------------------
@@ -417,7 +419,12 @@ function webmap3_searchAddress( address )
 
 function webmap3_geocoding( address ) 
 {
-    webmap3_geocoder.geocode( { 'address': address}, function( results, status ) {
+	var request = { 'address': address };
+	if ( webmap3_region != '' ) {
+		request = { 'address': address, 'region': webmap3_region };
+	}
+
+    webmap3_geocoder.geocode( request, function( results, status ) {
       if ( status == google.maps.GeocoderStatus.OK ) {
 		webmap3_geocodingResult( results );
 
@@ -557,7 +564,7 @@ function webmap3_addSearchMarker( index, position, content )
 /* marker */
 	var param = {
 		icon: icon,
-		content: content,
+		content: content
 	};
 	var marker = webmap3_createMarker( webmap3_map, position, param ); 
 

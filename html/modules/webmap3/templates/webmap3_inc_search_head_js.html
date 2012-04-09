@@ -1,4 +1,4 @@
-<{* $Id: webmap3_inc_search_head_js.html,v 1.1 2012/03/17 09:42:55 ohwada Exp $ *}>
+<{* $Id: webmap3_inc_search_head_js.html,v 1.2 2012/04/09 12:09:43 ohwada Exp $ *}>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -11,6 +11,9 @@ function <{$map_func}>()
 <{* value: strings *}>
 <{if $marker_url }>
 	webmap3_marker_url = "<{$marker_url}>";
+<{/if}>
+<{if $region }>
+	webmap3_region = "<{$region}>";
 <{/if}>
 <{if $ele_id_list }>
 	webmap3_ele_id_list = "<{$ele_id_list}>";

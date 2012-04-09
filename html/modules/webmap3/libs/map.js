@@ -1,7 +1,16 @@
 /* ========================================================
- * $Id: map.js,v 1.1 2012/03/17 09:28:53 ohwada Exp $
+ * $Id: map.js,v 1.2 2012/04/09 12:09:43 ohwada Exp $
  * http://code.google.com/intl/en/apis/maps/documentation/javascript/
  * ========================================================
+ */
+
+/* --------------------------------------------------------
+ * change log
+ * 2012-04-02 K.OHWADA
+ *   bugfix: NOT work in IE9
+ * 2012-03-01 K.OHWADA
+ *   Frist version
+ * --------------------------------------------------------
  */
 
 /* ========================================================
@@ -240,7 +249,7 @@ function webmap3_createMarker( map, position, param )
 {
 	var options = {
         map:      map,
-        position: position,
+        position: position
 	};
 
 // if icon exist
