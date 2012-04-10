@@ -1,5 +1,5 @@
 <?php
-// $Id: locate.php,v 1.1 2012/04/09 11:55:33 ohwada Exp $
+// $Id: locate.php,v 1.2 2012/04/10 00:15:52 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -24,7 +24,7 @@ if ( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) {
 	$MY_DIRNAME = 'webmap3' ;
 }
 
-$constpref = strtoupper( '_MI_L_' . $MY_DIRNAME. '_' ) ;
+$constpref = strtoupper( '_L_' . $MY_DIRNAME. '_' ) ;
 
 // === define begin ===
 if( !defined($constpref."LANG_LOADED") ) 

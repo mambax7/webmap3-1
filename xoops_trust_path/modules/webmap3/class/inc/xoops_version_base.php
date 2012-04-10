@@ -1,5 +1,5 @@
 <?php
-// $Id: xoops_version_base.php,v 1.1 2012/03/17 09:28:13 ohwada Exp $
+// $Id: xoops_version_base.php,v 1.2 2012/04/10 00:15:02 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -120,8 +120,8 @@ function modify_config_title_length()
 		return;
 	}
 
-	$config =& webmap3_xoops_config_modify::getInstance();
-	$config->modify_name_length();
+	$config =& webmap3_xoops_config_update::getInstance();
+	$config->update();
 }
 
 function check_post_fct_modulesadmin()

@@ -1,5 +1,5 @@
 <?php
-// $Id: xoops_version.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+// $Id: xoops_version.php,v 1.3 2012/04/10 00:15:02 ohwada Exp $
 
 // 2012-04-02 K.OHWADA
 // region
@@ -311,7 +311,7 @@ function build_config()
 		'description'	=> $this->lang_name( 'CFG_REGION_DSC' ) ,
 		'formtype'		=> 'textbox' ,
 		'valuetype'		=> 'text' ,
-		'default'		=> $this->lang( 'L_REGION' ),
+		'default'		=> $this->locate( 'REGION' ),
 		'options'		=> array()
 	) ;
 
@@ -392,6 +392,15 @@ function build_blocks()
 	}
 
 	return $arr;
+}
+
+//---------------------------------------------------------
+// locate
+//---------------------------------------------------------
+function locate( $name )
+{
+	$constant_name = strtoupper( '_L_' . $this->_DIRNAME . '_' . $name );
+	return constant( $constant_name );
 }
 
 // --- class end ---
