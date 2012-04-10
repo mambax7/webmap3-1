@@ -1,5 +1,5 @@
 <?php
-// $Id: api.php,v 1.2 2012/04/09 12:00:36 ohwada Exp $
+// $Id: api.php,v 1.3 2012/04/10 00:32:20 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -18,6 +18,10 @@ include_once XOOPS_ROOT_PATH.'/class/snoopy.php';
 // webmap3 files
 //---------------------------------------------------------
 include_once XOOPS_TRUST_PATH.'/modules/webmap3/init.php';
+
+if ( !isset($MY_DIRNAME) && isset($GLOBALS['MY_DIRNAME']) ) {
+	$MY_DIRNAME = $GLOBALS['MY_DIRNAME'];
+}
 
 webmap3_include_once( 'include/constants.php',          $MY_DIRNAME );
 webmap3_include_once( 'class/lib/handler_basic.php',    $MY_DIRNAME );
