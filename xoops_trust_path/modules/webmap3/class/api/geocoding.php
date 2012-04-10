@@ -1,5 +1,5 @@
 <?php
-// $Id: geocoding.php,v 1.2 2012/04/10 00:50:24 ohwada Exp $
+// $Id: geocoding.php,v 1.3 2012/04/10 01:46:49 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -54,7 +54,7 @@ function build_url()
 	$url  = $this->_BASE_URL;
 	$url .= '&region='.$this->_region;
 	$url .= '&language='.$this->_language;
-	$url .= '&address='. $this->to_utf8( $this->_search_address );
+	$url .= '&address='. $this->to_utf8_rawurlencode( $this->_search_address );
 	return $url;
 }
 
@@ -130,9 +130,10 @@ function fetch()
 //---------------------------------------------------------
 // multibyte
 //---------------------------------------------------------
-function to_utf8( $str )
+function to_utf8_rawurlencode( $str )
 {
-	return $this->_multibyte_class->convert_to_utf8( $str );
+	return rawurlencode(
+		$this->_multibyte_class->convert_to_utf8( $str ) );
 }
 
 function from_utf8( $str )
