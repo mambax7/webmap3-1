@@ -1,5 +1,5 @@
 <?php
-// $Id: demo.php,v 1.2 2012/04/09 12:09:43 ohwada Exp $
+// $Id: demo.php,v 1.3 2012/04/10 00:45:47 ohwada Exp $
 
 // 2012-04-02 K.OHWADA
 // api_map.php -> api.php
@@ -17,9 +17,9 @@ echo "<a href='index.php'>[Webmap3 Top]</a>\n";
 echo "<h4>Demonstration of Fucntion Call</h4>\n";
 
 // === map start ===
-$dirname = 'webmap3';
-require XOOPS_ROOT_PATH . '/modules/'.$dirname.'/include/api.php';
-$map_class =& webmap3_api_map::getSingleton( $dirname );
+$MY_DIRNAME = basename( dirname( __FILE__ ) ) ;
+require XOOPS_ROOT_PATH . '/modules/'. $MY_DIRNAME .'/include/api.php';
+$map_class =& webmap3_api_map::getSingleton( $MY_DIRNAME );
 $map_class->init();
 $map_class->set_map_size( 640, 480 );
 
