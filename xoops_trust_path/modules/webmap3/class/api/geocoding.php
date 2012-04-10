@@ -1,5 +1,5 @@
 <?php
-// $Id: geocoding.php,v 1.1 2012/04/09 11:55:33 ohwada Exp $
+// $Id: geocoding.php,v 1.2 2012/04/10 00:50:24 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -132,12 +132,12 @@ function fetch()
 //---------------------------------------------------------
 function to_utf8( $str )
 {
-	$this->_multibyte_class->convert_to_utf8( $str );
+	return $this->_multibyte_class->convert_to_utf8( $str );
 }
 
 function from_utf8( $str )
 {
-	$this->_multibyte_class->convert_from_utf8( $str );
+	return $this->_multibyte_class->convert_from_utf8( $str );
 }
 
 //---------------------------------------------------------
