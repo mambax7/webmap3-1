@@ -1,5 +1,8 @@
 <?php
-// $Id: language_base.php,v 1.1 2012/03/17 09:28:16 ohwada Exp $
+// $Id: language_base.php,v 1.2 2012/04/11 05:35:56 ohwada Exp $
+
+// 2012-04-02 K.OHWADA
+// typo
 
 //=========================================================
 // webmap3 module
@@ -84,7 +87,9 @@ function get_constant( $name )
 	$cont_name_1 = $this->build_constant_name_1( $name );
 	$cont_name_2 = $this->build_constant_name_2( $name );
 	$cont_name_3 = $this->build_constant_name_3( $name );
-	$cont_name_4 = $this->build_constant_name_3( $name );
+
+// typo
+	$cont_name_4 = $this->build_constant_name_4( $name );
 
 	if ( defined($cont_name_1) ) {
 		return constant($cont_name_1);
@@ -138,7 +143,7 @@ function build_constant_name_3( $name )
 
 function build_constant_name_4( $name )
 {
-	$str = $this->build_constant_pref( $pref ) .'_'. $name ;
+	$str = '_'. $name ;
 	return strtoupper( $str );
 }
 

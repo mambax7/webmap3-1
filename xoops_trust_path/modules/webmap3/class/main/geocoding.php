@@ -1,5 +1,5 @@
 <?php
-// $Id: geocoding.php,v 1.1 2012/04/09 11:55:33 ohwada Exp $
+// $Id: geocoding.php,v 1.2 2012/04/11 05:35:57 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -39,6 +39,10 @@ function &getInstance( $dirname )
 function main()
 {
 	$arr1 = $this->build_base();
+	$arr1['lang_language'] = $this->get_lang_modinfo('CFG_LANGUAGE') ;
+	$arr1['lang_region']   = $this->get_lang_modinfo('CFG_REGION') ;
+	$arr1['language_s']    = $this->get_config_text('language', 's');
+	$arr1['region_s']      = $this->get_config_text('region',   's');
 
 	if ( isset($_GET['address']) ) {
 		$arr2 = $this->fetch( $_GET['address'] );
@@ -79,6 +83,12 @@ function fetch( $address )
 		'longitude' => $results[0]['lng'],
 	);
 	return $arr;
+}
+
+function get_lang_modinfo( $name )
+{
+	$lang_name = strtoupper( '_MI_' . $this->_DIRNAME . '_' . $name );
+	return constant( $lang_name );
 }
 
 // --- class end ---

@@ -1,5 +1,5 @@
 <?php
-// $Id: main.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+// $Id: main.php,v 1.3 2012/04/11 05:35:57 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -69,7 +69,7 @@ define('_WEBMAP3_GET_ADDRESS',  '緯度・経度から住所を取得する');
 define('_WEBMAP3_DISPLAY_DESC',   'GoogleMaps にて位置情報を取得する');
 define('_WEBMAP3_DISPLAY_NEW',    '新しいウィンドで表示する');
 define('_WEBMAP3_DISPLAY_POPUP',  'ポップアップで表示する');
-define('_WEBMAP3_DISPLAY_INLINE', 'インラインで表示する');
+define('_WEBMAP3_DISPLAY_INLINE', '地図を表示する');
 define('_WEBMAP3_DISPLAY_HIDE',   '(非表示にする)');
 
 // set location

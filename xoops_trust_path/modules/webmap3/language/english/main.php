@@ -1,5 +1,5 @@
 <?php
-// $Id: main.php,v 1.2 2012/04/09 11:52:19 ohwada Exp $
+// $Id: main.php,v 1.3 2012/04/11 05:35:57 ohwada Exp $
 
 //=========================================================
 // webmap3 module
@@ -68,9 +68,9 @@ define("_WEBMAP3_GET_LOCATION", "Get latitude and longitude");
 define('_WEBMAP3_GET_ADDRESS',  'Get Address from latitude and longitude');
 define('_WEBMAP3_DISPLAY_DESC',   'Get location with GoogleMaps');
 define('_WEBMAP3_DISPLAY_NEW',    'Show new window');
-define('_WEBMAP3_DISPLAY_POPUP',  'Show popup window‚é');
-define('_WEBMAP3_DISPLAY_INLINE', 'Show inline');
-define('_WEBMAP3_DISPLAY_HIDE',   '(Hide inline)');
+define('_WEBMAP3_DISPLAY_POPUP',  'Show popup window');
+define('_WEBMAP3_DISPLAY_INLINE', 'Show map');
+define('_WEBMAP3_DISPLAY_HIDE',   '(Hide map)');
 
 // set location
 define("_WEBMAP3_TITLE_SET_LOCATION", "Setting of Latitude and Longitude");
