@@ -26,7 +26,7 @@ function webmap3_view_kml( $dirname )
 	$this->_kml_class   =& webmap3_api_kml::getSingleton( $dirname );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

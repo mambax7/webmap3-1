@@ -23,7 +23,7 @@ function webmap3_inc_admin_menu( $dirname )
 	$this->webmap3_inc_admin_menu_base( $dirname );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

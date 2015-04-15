@@ -29,7 +29,7 @@ function webmap3_api_gicon( $dirname )
 	$this->_URL_ICON_DEFAULT = XOOPS_URL.'/modules/'.$dirname.'/images/markers/marker.png';
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

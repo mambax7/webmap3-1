@@ -86,7 +86,7 @@ function webmap3_api_get_location( $dirname )
 	$this->_ele_id_current_address  = $dirname."_map_current_address";
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

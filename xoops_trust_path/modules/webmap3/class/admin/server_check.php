@@ -48,7 +48,7 @@ function webmap3_admin_server_check( $dirname, $trust_dirname )
 	$this->set_lang_recommend_off( $this->get_lang( 'RECOMMEND_OFF' ) );
 }
 
-function &getInstance( $dirname, $trust_dirname )
+public static function &getInstance( $dirname, $trust_dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

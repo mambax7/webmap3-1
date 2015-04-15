@@ -23,7 +23,7 @@ function webmap3_lib_dir()
 	//
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

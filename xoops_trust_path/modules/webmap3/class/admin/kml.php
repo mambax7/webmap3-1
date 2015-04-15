@@ -23,7 +23,7 @@ function webmap3_admin_kml( $dirname )
 	$this->_builder =& webmap3_view_kml::getInstance( $dirname );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

@@ -31,7 +31,7 @@ function webmap3_handler_gicon( $dirname )
 	$this->set_debug_error_by_const_name( $constpref.'DEBUG_ERROR' );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

@@ -23,7 +23,7 @@ function webmap3_admin_mb_check()
 	$this->set_lang_success( _AM_WEBMAP3_CHK_MB_SUCCESS );
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

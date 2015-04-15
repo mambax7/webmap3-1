@@ -33,7 +33,7 @@ function webmap3_lib_multibyte()
 	$this->_is_japanese = $this->is_japanese();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

@@ -32,7 +32,7 @@ function webmap3_lib_utility()
 	// dummy
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

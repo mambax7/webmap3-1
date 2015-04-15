@@ -29,7 +29,7 @@ function webmap3_inc_config( $dirname )
 	$this->_cached_config = $this->get_config_by_dirname( $dirname );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

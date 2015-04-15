@@ -24,7 +24,7 @@ function webmap3_main_geocoding( $dirname )
 	$this->_api_class =& webmap3_api_geocoding::getSingleton( $dirname );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

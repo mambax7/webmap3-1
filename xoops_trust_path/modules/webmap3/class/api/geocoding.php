@@ -37,7 +37,7 @@ function webmap3_api_geocoding( $dirname )
 	$this->_region   = $config_class->get_by_name( 'region' );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

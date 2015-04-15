@@ -27,7 +27,7 @@ function webmap3_xoops_param()
 	$this->_language    = $this->get_config_by_name('language');
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

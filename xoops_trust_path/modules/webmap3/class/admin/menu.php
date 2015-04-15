@@ -25,7 +25,7 @@ function webmap3_admin_menu( $dirname, $trust_dirname )
 	$this->_inc_class =& webmap3_inc_admin_menu::getSingleton( $dirname );
 }
 
-function &getInstance( $dirname, $trust_dirname )
+public static function &getInstance( $dirname, $trust_dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

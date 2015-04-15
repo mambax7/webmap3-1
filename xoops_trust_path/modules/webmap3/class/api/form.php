@@ -34,7 +34,7 @@ function webmap3_api_form( $dirname )
 	$this->_html_class  =& webmap3_api_html::getSingleton(  $dirname );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

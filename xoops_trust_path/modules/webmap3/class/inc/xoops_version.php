@@ -42,7 +42,7 @@ function webmap3_inc_xoops_version( $dirname )
 	$this->_CFG_GICON_PATH = 'uploads/'. $dirname;
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

@@ -37,7 +37,7 @@ function webmap3_d3_language_base( $dirname , $trust_dirname )
 	$this->set_debug_error_by_const_name( $dirname.'_C_DEBUG_ERROR' );
 }
 
-function &getInstance( $dirname , $trust_dirname )
+public static function &getInstance( $dirname , $trust_dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

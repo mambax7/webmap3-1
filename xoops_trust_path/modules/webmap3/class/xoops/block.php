@@ -27,7 +27,7 @@ function webmap3_xoops_block( $dirname )
 }
 
 // webmap3_inc_xoops_version_base
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

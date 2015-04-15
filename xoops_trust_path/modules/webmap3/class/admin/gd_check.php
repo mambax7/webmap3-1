@@ -24,7 +24,7 @@ function webmap3_admin_gd_check()
 	$this->set_lang_failed(  _AM_WEBMAP3_CHK_GD_FAILED );
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

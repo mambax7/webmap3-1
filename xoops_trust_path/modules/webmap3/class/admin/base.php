@@ -47,7 +47,7 @@ function webmap3_admin_base( $dirname, $trust_dirname )
 	$this->_TMP_DIR      = $this->_UPLOADS_DIR .'/'. $this->_SUB_DIR_TMP ;
 }
 
-function &getInstance( $dirname, $trust_dirname )
+public static function &getInstance( $dirname, $trust_dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

@@ -26,7 +26,7 @@ function webmap3_admin_mb_check_base()
 	$this->_multibyte_class =& webmap3_lib_multibyte::getInstance();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

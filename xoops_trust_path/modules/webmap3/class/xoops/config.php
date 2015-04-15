@@ -22,7 +22,7 @@ function webmap3_xoops_config( $dirname )
 	$this->webmap3_xoops_config_dirname( $dirname );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

@@ -22,7 +22,7 @@ function webmap3_lib_post()
 	// dummy
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

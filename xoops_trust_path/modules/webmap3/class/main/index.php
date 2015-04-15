@@ -32,7 +32,7 @@ function webmap3_main_index( $dirname )
 	$this->_ELE_ID_SEARCH = $dirname."webmap3_map_search";
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

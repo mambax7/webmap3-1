@@ -43,7 +43,7 @@ function webmap3_lib_uploader_lang( $dirname , $trust_dirname )
 	$this->_language_class =& webmap3_d3_language_base::getInstance( $dirname , $trust_dirname );
 }
 
-function &getInstance( $dirname , $trust_dirname )
+public static function &getInstance( $dirname , $trust_dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

@@ -24,7 +24,7 @@ function webmap3_xoops_header( $dirname )
 	$this->webmap3_xoops_header_base( $dirname, WEBMAP3_TRUST_DIRNAME );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

@@ -26,7 +26,7 @@ function webmap3_xoops_config_item( $dirname )
 	$this->_module_mid = $this->get_module_mid_by_dirname( $dirname );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

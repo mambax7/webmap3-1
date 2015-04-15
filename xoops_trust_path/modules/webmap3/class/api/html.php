@@ -163,7 +163,7 @@ function webmap3_api_html( $dirname )
 	$this->_lang_current_address    = $this->get_lang('CURRENT_ADDRESS') ;
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

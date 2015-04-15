@@ -46,7 +46,7 @@ function webmap3_lib_admin_menu( $dirname , $trust_dirname )
 	$this->_prefix_am = '_AM_'. $trust_dirname .'_'.$this->_PREFIX.'_' ;
 }
 
-function &getInstance( $dirname , $trust_dirname )
+public static function &getInstance( $dirname , $trust_dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

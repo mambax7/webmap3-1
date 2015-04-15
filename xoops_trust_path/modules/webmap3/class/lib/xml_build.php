@@ -28,7 +28,7 @@ function webmap3_lib_xml_base()
 	$this->_multibyte_class = new webmap3_lib_multibyte();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {
@@ -328,7 +328,7 @@ function webmap3_lib_xml_build()
 	$this->webmap3_lib_xml_base();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

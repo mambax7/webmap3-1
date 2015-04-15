@@ -40,7 +40,7 @@ function webmap3_main_get_location( $dirname )
 	$this->_api_class   =& webmap3_api_get_location::getSingleton( $dirname );
 }
 
-function &getInstance( $dirname )
+public static function &getInstance( $dirname )
 {
 	static $instance;
 	if (!isset($instance)) {

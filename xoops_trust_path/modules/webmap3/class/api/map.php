@@ -124,7 +124,7 @@ function webmap3_api_map( $dirname )
 	$this->_REGION_DEFAULT = $config_class->get_by_name( 'region' );
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

@@ -22,7 +22,7 @@ function webmap3_api_kml( $dirname )
 	$this->webmap3_lib_kml_build();
 }
 
-function &getSingleton( $dirname )
+public static function &getSingleton( $dirname )
 {
 	static $singletons;
 	if ( !isset( $singletons[ $dirname ] ) ) {

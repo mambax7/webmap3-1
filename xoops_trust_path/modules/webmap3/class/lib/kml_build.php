@@ -187,7 +187,7 @@ function webmap3_lib_kml_build()
 	$this->set_view_title( 'Google KML' );
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) 

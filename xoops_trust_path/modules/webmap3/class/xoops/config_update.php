@@ -22,7 +22,7 @@ function webmap3_xoops_config_update()
 	$this->webmap3_lib_handler_basic();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {

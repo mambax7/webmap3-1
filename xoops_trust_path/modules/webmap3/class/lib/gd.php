@@ -26,7 +26,7 @@ function webmap3_lib_gd()
 	$this->_is_gd2 = $this->is_gd2();
 }
 
-function &getInstance()
+public static function &getInstance()
 {
 	static $instance;
 	if (!isset($instance)) {
